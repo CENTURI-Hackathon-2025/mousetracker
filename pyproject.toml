@@ -34,7 +34,7 @@ classifiers = [
 dependencies = [
     "numpy", 
     "jupyter",
-    "opencv",
+    "opencv-python",
 ]
 
 [project.urls]

@@ -8,6 +8,10 @@ import numpy as np
 import cv2
 
 
+def foo():
+    print("hello")
+
+
 def run_app():
 
     # Path leading to your video
