@@ -1,0 +1,35 @@
+# Camera Specifications
+
+Serial Number:          14471827
+Model:                  Grasshopper3 G53-U3-41C6NIR
+Vendor:                 Point Grey Research
+Sensor:                 CMOSIS CMV4000 (1" Mono CMOS)
+Resolution:             2048x2048
+Interface:              USB 3.0
+Bus Speed:              S5000
+IIDC Version:           1.32
+Firmware Version:       2.23.3.2
+Firmware Build Time:    Wed Sep 21 20:05:39 2016
+Driver:                 None
+
+# Camera Configuration
+
+Brightness:             5.078 %
+Exposure:               1.415 EV (Auto)
+Sharpness:              1024
+Hue:
+Saturation:
+Gamma:                  1.250
+Iris:
+Focus:
+Zoom:
+Pan:
+Tilt:
+Shutter:                6.187 ms (Auto)
+Gain:                   0.000 dB (Auto)
+Frame Rate:             25 fps
+W.B (Red):
+W.B (Blue):
+Power:
+Temperature: 30.2 °C
+
