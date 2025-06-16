@@ -19,7 +19,7 @@ pip install mousetracker
 ```
 
 
-To install latest development version :
+To install latest development version (use this line as there is already a 'mousetracker' on PiPy) :
 
 ```shell
 pip install git+https://github.com/CENTURI-Hackathon-2025/mousetracker.git
@@ -46,7 +46,7 @@ Concretely, the goal is to improve the code (or make a new one) so it would be f
 ### Tasks
 
 This project can be divided in several tasks: 
-- (Problem 1 and 2) Study how the Mouse/background detection may impact the loss of the mouse by the tracker and the (speed of the background estimation, weight of the past estimations, threshold etc.)
+- (Problem 1 and 2) Study how the mouse/background detection may impact the loss of the mouse by the tracker and the (speed of the background estimation, weight of the past estimations, threshold etc.)
 - (Problem 3) Search for image processing methods to correct for lense distortion. It can be based on the camera specifications (e.g focus, size of the lens etc.) or on visual criterion (e.g develop a transformation such that it makes the borders of the arena parallel).
 - (Problem 4) Study the different ways to detect shadows.
 - Compare the new and old tracking code
