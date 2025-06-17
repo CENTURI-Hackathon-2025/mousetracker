@@ -24,6 +24,7 @@ def run_app():
     else:
         print("No video found, check input_video name")
 
+    # Register the starting time of the function
     start = timeit.default_timer()
 
     # Open the video
@@ -35,15 +36,9 @@ def run_app():
         history=1, varThreshold=16, detectShadows=True
     )
 
-    _x = _y = 0
-    text = ""
+    # Initialize position and time
     time_arr, x_pos, y_pos = np.array([]), np.array([]), np.array([])
-    speed, dist, conseq, rew = (
-        np.array([]),
-        np.array([]),
-        np.array([]),
-        np.array([]),
-    )
+    
     t = 0
 
     # Retrieving framerate and frame count
@@ -51,13 +46,11 @@ def run_app():
     framerate = int(cap.get(cv2.CAP_PROP_FPS))
     length = int(cap.get(cv2.CAP_PROP_FRAME_COUNT)) - framerate
 
-    # Creation of the kernel for morphological operations
-    kernel = np.ones((5, 5), np.uint8)
-
     # Variable for break
     pause = False
 
     # Window Initialization
+    # The video + tracking will be displayed in this window
     cv2.namedWindow("Original (left) | Tracked (right)", cv2.WINDOW_NORMAL)
 
     # Resize the window to a specific size (e.g. 1024x512)
@@ -68,7 +61,7 @@ def run_app():
     )
 
     # Frame processing loop
-    for i in range(0, length):
+    for _ in range(0, length):
 
         # If the video is paused, we wait
         while pause:
@@ -76,22 +69,29 @@ def run_app():
             if k == ord(" "):  # Press "Space" to resume
                 pause = False
 
+        # Register the time at which the current frame starts to be processed
         frame_start = time.time()
 
+        # Read current frame
         ret, frm = cap.read()
         if not ret:
             break
-
+        
+        ##################################
+        ### Mouse detection + tracking ###
+        ##################################
+        
+        # Resize current frame
         frm = cv2.resize(frm, resolution, interpolation=cv2.INTER_AREA)
 
-        # Apply a Gaussian blur
+        # Apply a Gaussian blur (not sure if it is necessary ? Maybe it's better for the background substraction)
         kernelSize = (25, 25)
         frameBlur = cv2.GaussianBlur(frm, kernelSize, 0)
 
         # Apply background subtraction
         thresh = fgbg.apply(frameBlur, learningRate=0.0009)
 
-        # Calculation of the center of mass
+        # Calculation of the centroid (center of mass). This will be considered as the position of the mouse.
         M = cv2.moments(thresh)
         if M["m00"] == 0:
             continue
@@ -109,6 +109,10 @@ def run_app():
         time_arr = np.append(time_arr, t)
         x_pos = np.append(x_pos, x)
         y_pos = np.append(y_pos, y)
+
+        #######################################
+        ### Display of the video + tracking ###
+        #######################################
 
         # Concatenate videos: Original on the left, tracked on the right
         thresh_colored = cv2.cvtColor(thresh, cv2.COLOR_GRAY2BGR)
