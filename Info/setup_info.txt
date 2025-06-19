@@ -3,7 +3,7 @@
 Arena:                                  square of 83 cm sides
 Towers:                                 squares of 12 cm sides
 
-Distance from camera to setup floor:    XXX cm
+Distance from camera to setup floor:    60.5 cm
  __________________________________________________________________________________
 |                                                                                  |
 |                                                                                  |
