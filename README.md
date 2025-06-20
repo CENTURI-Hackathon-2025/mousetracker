@@ -11,7 +11,7 @@ Closed-loop MouseTracker: Live tracking of mouse behaviour
 ----------------------------------
 
 ## Installation
-
+ 
 You can install `mousetracker` via [pip]:
 
 ```shell
