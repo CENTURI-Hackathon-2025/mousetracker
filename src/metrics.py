@@ -4,17 +4,7 @@ from scipy.ndimage import rotate, center_of_mass
 from skimage.morphology import skeletonize
 from skimage.transform import resize
 import matplotlib.pyplot as plt
-# def b0_error_numpy_2D(x, y):
-#
-#     # _, ncc_pred = label(, return_num=True, connectivity=2)
-#     # return ncc_pred
-#
-# def b1_error_numpy_2D(y_pred):
-#     y_pred_inverse = np.ones(y_pred.shape) - y_pred
-#     _, ncc_pred = label(y_pred_inverse, return_num=True, connectivity=1)
-#     b1_pred = ncc_pred - 1
-#
-#     return b1_pred
+
 
 def dice(seg1, seg2):
     intersection = np.logical_and(seg1, seg2).sum()
@@ -24,7 +14,7 @@ def extract_orientation(seg):
     """Retourne l'orientation principale (en degrés) de l'objet segmenté."""
     props = regionprops(label(seg.astype(int)))
     if not props:
-        return 0  # ou np.nan si aucune région
+        return 0, (np.nan, np.nan)  # ou np.nan si aucune région
     centroid = props[0].centroid
     return -props[0].orientation * 180 / np.pi, centroid  # skimage donne en radians
 
