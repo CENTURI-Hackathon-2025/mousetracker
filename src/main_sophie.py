@@ -11,17 +11,4 @@ from utils import load_segmentations_from_video, remove_empty_segmentations
 
 
 ##################################################### Analyses #########################################################
-framerate = 10
-path_to_video = "../results/Video1_TO0/old_tracking_Video1_TO0.avi"
-
-
-segs = load_segmentations_from_video(path_to_video)
-segs_copy = [seg * 1.0 for seg in segs]
-
-# Supprimer les images vides
-segs_copy = remove_empty_segmentations(segs_copy)
-aligned_segs = align_segmentations(segs_copy)
-mean_value, __ = evaluate_aligned_segmentations(aligned_segs, framerate)
-print(f"Dice moyen selon la frame rate {framerate}: {mean_value}")
-
 
