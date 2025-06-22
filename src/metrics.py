@@ -105,3 +105,92 @@ def extract_mouse_skelet(seg):
     skelet = skeletonize(seg)
     return skelet
 
+
+### Trajectory Smoothness ###
+
+def compute_speeds(x,t):
+    
+    """
+    Compute speed along one axis
+    """
+
+    dx=np.diff(x)
+    dt = np.diff(t)
+    v = dx / dt
+    
+    return v
+
+def compute_oriented_angle(x1,y1,x2,y2):
+
+    """
+    Returns the oriented angle in radian between two vectors
+    """
+
+    cross_product = x1 * y2 - y1 * x2  # produit vectoriel en 2D
+    dot_product = x1 * x2 + y1 * y2  # produit scalaire
+    angle = np.arctan2(cross_product, dot_product)
+
+    return angle  # en radians, dans [-π, π]
+
+def compute_angles(x,y,t):
+
+    vx = compute_speeds(x,t)
+    vy = compute_speeds(y,t)
+    angles = compute_oriented_angle(vx[:-1], vy[:-1], vx[1:], vy[1:])
+
+    return np.array(angles)
+
+def count_bad_angles(x,y,t,seuil):
+
+    """
+    Compute the proportion of angles above the threshold.
+    """
+
+    angles = compute_angles(x,y,t)
+
+    # Normaliser les angles dans [-π, π]
+    angles = (angles + np.pi) % (2 * np.pi) - np.pi
+
+    # Count angles above threshold (in absolute value)
+    count_bad_angle = np.sum((angles >= (-np.pi / 2 - seuil)) & (angles <= (-np.pi / 2 + seuil)))
+    
+    return count_bad_angle/len(angles)
+
+### Abherent Speeds ###
+
+def compute_speed(x,y,t):
+
+    """
+    Compute speed norm
+    """
+
+    dx_arr = np.diff(x)
+    dy_arr = np.diff(y)
+    dt_arr = np.diff(t)
+
+    v = np.sqrt(dx_arr**2 + dx_arr**2)/dt_arr
+
+    return v
+
+def count_speeds_above_threshold(x,y,t,thr):
+
+    """
+    Compute the proportion of speed above the threshold.
+    """
+
+    v = compute_speed(x,y,t)
+
+    # Convert the threshold units from cm/s to pixels/s
+    arena_width_cm = 84
+    arena_width_pixels = 453
+    coef = arena_width_cm/arena_width_pixels
+
+    cutting_thr = thr/coef
+
+    # Find where speed is above the threshold
+    where_above_thr = np.where(v>thr,1,0)
+
+    # Count the number of places matching the condition
+    nb_above_thr = np.sum(where_above_thr)
+
+    return nb_above_thr/len(v)
