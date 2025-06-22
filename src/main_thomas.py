@@ -9,6 +9,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import PIL.Image as Image
 import nibabel as nib
+from pathlib import Path
 import skimage.morphology as morphology
 # This code aims to help you visualize a lived and tracked video and test how changing parameters impact the tracking
 # Last update (28/03/2025): add a red point to follow the mouse's centroid in the live video
@@ -152,14 +153,16 @@ def track(input_video):
 
 
         ############################## tracking et sauvegarde de la souris ####################################################
-x_pos, y_pos, time_arr, segs = track("/home/scarneiro/Documents/hackathon/Hackathon_videos/to_0/Video1_TO0.avi")
-i_max = 400
-for i in range(len(segs)):
-    save_image(segs[i], f"../segs/seg_{i:03d}.png")
-    if i ==i_max:
-        break
+name_directory = "C:/Users/thoma/Documents/ASciences/AAMU/HACKATON/Hackathon_videos/to_15"
+x_pos, y_pos, time_arr, segs = track(r"C:\Users\thoma\Documents\ASciences\AAMU\HACKATON\Hackathon_videos\to_15\Video1_TO15.avi")
+i_max = len=(400)
+# for i in range(len(segs)):
+#     file_path = Path(name_directory) / f"seg_{i:03d}.png"
+#     save_image(segs[i], file_path)
+#     if i ==i_max:
+#         break
 
-save_traj_to_csv(x_pos[:i_max], y_pos[:i_max], time_arr[:i_max], path_and_name='../segs/test_csv')
-
+# save_traj_to_csv(x_pos[:i_max], y_pos[:i_max], time_arr[:i_max], path_and_name=name_directory + "/Hackathon_videostest_csv")
+save_traj_to_csv(x_pos, y_pos, time_arr, path_and_name=name_directory + "/Hackathon_videostest_csv")
 print(len(segs))
 
