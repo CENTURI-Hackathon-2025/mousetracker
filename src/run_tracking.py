@@ -3,13 +3,13 @@ import argparse
 import os
 
 
-# video_file = input("Enter video file path: ")
-# result_directory = input("Enter result directory path: ")
-# method = input("Enter the method: ")
+video_file = input("Enter video file path: ")
+result_directory = input("Enter result directory path: ")
+method = input("Enter the method: ")
 
-video_file = "/home/scarneiro/Documents/hackathon/Hackathon_videos/to_0/Video1_TO0.avi"
-result_directory = "../results"
-method = "new_tracking"
+# video_file = "/home/scarneiro/Documents/hackathon/Hackathon_videos/to_0/Video1_TO0.avi"
+# result_directory = "../results"
+# method = "new_tracking"
 
 
 
